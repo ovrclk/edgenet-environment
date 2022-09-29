@@ -11,6 +11,8 @@ endif
 AKASH_VERSION_FILE               := $(CACHE_VERSIONS)/akash/$(AKASH_VERSION)
 PROVIDER_SERVICES_VERSION_FILE   := $(CACHE_VERSIONS)/provider-services/$(PROVIDER_SERVICES_VERSION)
 
+test_key := $(AKASH_HOME)/keyring-test/test.info
+
 $(CACHE_DIR):
 	@echo "creating dir structure..."
 	mkdir -p $@
@@ -21,9 +23,9 @@ $(CACHE_DIR):
 cache: $(CACHE_DIR)
 
 .PHONY: init
-init: $(AKASH) $(PROVIDER_SERVICES)
+init: $(AKASH) $(PROVIDER_SERVICES) $(test_key)
 
-$(AKASH_VERSION_FILE): $(CACHE_DIR)
+$(AKASH_VERSION_FILE):
 	@echo "Installing akash $(AKASH_VERSION) ..."
 	rm -f $(AKASH)
 	wget -q https://github.com/ovrclk/akash/releases/download/v$(AKASH_VERSION)/akash_$(UNAME_OS_LOWER)_$(UNAME_ARCH).zip -O $(CACHE_DIR)/akash.zip
@@ -35,7 +37,7 @@ $(AKASH_VERSION_FILE): $(CACHE_DIR)
 	touch $@
 $(AKASH): $(AKASH_VERSION_FILE)
 
-$(PROVIDER_SERVICES_VERSION_FILE): $(CACHE_DIR)
+$(PROVIDER_SERVICES_VERSION_FILE):
 	@echo "Installing provider-services $(PROVIDER_SERVICES_VERSION) ..."
 	rm -f $(PROVIDER_SERVICES)
 	wget -q https://github.com/ovrclk/provider-services/releases/download/v$(PROVIDER_SERVICES_VERSION)/provider-services_$(UNAME_OS_LOWER)_$(UNAME_ARCH).zip \
@@ -47,6 +49,9 @@ $(PROVIDER_SERVICES_VERSION_FILE): $(CACHE_DIR)
 	mkdir -p "$(dir $@)"
 	touch $@
 $(PROVIDER_SERVICES): $(PROVIDER_SERVICES_VERSION_FILE)
+
+$(test_key):
+	$(AKASH) keys add test
 
 .PHONY: clean
 clean:

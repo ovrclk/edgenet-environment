@@ -38,6 +38,7 @@ it will execute `akash` binary located in `.cache/bin`. Same applies to the `pro
 Each update will prompt to run `direnv allow`
 
 #### Adding keys
+!!!Upon first call to direnv it will generate default key `test`
 
 Use `akash` executable ONLY to manage keys. For example
 ```shell
