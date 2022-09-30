@@ -18,7 +18,7 @@ test_key                         := $(AKASH_HOME)/keyring-test/test.info
 cache: $(cache_init)
 
 .PHONY: init
-init: $(cache_init) $(AKASH) $(PROVIDER_SERVICES)
+init: $(cache_init) $(AKASH) $(PROVIDER_SERVICES) $(test_key)
 
 .PRECIOUS: %/.init
 %/.init:
