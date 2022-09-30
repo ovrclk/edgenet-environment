@@ -2,7 +2,50 @@
 
 ## Prerequisites
 ### Direnv
-This tutorial heavily depends on `direnv`. If it is unfamiliar to you check out [installations page](https://direnv.net/docs/installation.html) on how to set it up
+This tutorial heavily depends on `direnv`. Skip this section if you have it installed and configured
+
+#### Install
+##### MacOS
+```shell
+brew install direnv
+```
+
+##### Debian/Ubuntu based distributes
+```shell
+sudo apt-get update
+sudo apt-get install -y direnv
+```
+
+##### Arch Linux
+```shell
+sudo pacman -Rcns direnv
+```
+
+#### Hook it to the shell
+Detect your shell
+```
+echo "$SHELL"
+```
+##### bash
+```shell
+echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
+```
+##### zsh
+```shell
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc
+```
+
+##### fish
+```shell
+echo '>direnv hook fish | source' >> ~/.config/fish/config.fish
+```
+
+##### tcsh
+```shell
+echo 'eval `direnv hook tcsh`' >> ~/.cshrc 
+```
+
+!!! Reload shell after hook installation
 
 ### Make
 Tutorial requires `make` to be installed on your system
